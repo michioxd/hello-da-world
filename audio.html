@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>maniuu! minimal mapper</title>
+    <STYle>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+        * {
+            margin: 0;
+            padding: 0;
+            color-scheme: dark;
+            font-family: 'Roboto', sans-serif;
+            color: #fff
+        }
+        
+        body {
+            background: #000;
+        }
+        
+        .app {
+            display: flex;
+            width: 100%;
+            justify-content: center;
+        }
+        
+        .app .cop {
+            text-align: center;
+        }
+        
+        .app .cop textarea {
+            height: 68vh;
+        }
+        
+        .selFile {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .9);
+            z-index: 9;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff
+        }
+        
+        .selFile #file {
+            opacity: 0;
+            position: absolute;
+            z-index: 9;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            cursor: pointer;
+        }
+        
+        body.fileLoadded .selFile {
+            display: none;
+        }
+        
+        #speedChange {
+            width: 230px;
+        }
+    </STYle>
+</head>
+
+<body>
+    <div class="selFile">
+        <input type="file" id="file" accept="audio/*" />
+        <h1>drag n drop file here or click to sel file</h1>
+    </div>
+    <h1 id="ct">0 / 0</h1>
+    <button onclick="play()">play/pause</button>
+    <button onclick="stop()">stop</button>
+    <button onclick="copyTime()">copy current time</button>
+    <button onclick="openMeta()">open/close track info editor</button>
+    <button onclick="exportFile()">export to json</button>
+    <button onclick="unload()">unload file</button>
+    <button onclick="if (confirm('sure?')) {document.getElementById('time0').value = '';document.getElementById('time1').value = '';document.getElementById('time2').value = '';document.getElementById('time3').value = '';}">clear all</button><br>
+    <p>speed: <input id="speedChange" type="range" step="0.005" name="range" min="0.1" max="3" value="1"><button onclick="defaultSpeed()">reset</button> - current: <span id="currentSpeed">1x</span></p>
+    <p>go to time (seconds): <input id="goToTime" type="number" placeholder="in seconds"> <button onclick="gotoTime()">gooooo</button></p>
+    <p>hotkey: space: play/pause</p>
+    <br>
+    <div class="des" style="display: none;">
+        <div class="app">
+            <div class="cop">
+                <h2>D</h2>
+                <textarea id="time0"></textarea><br>
+                <button onclick="CopyMe(document.getElementById('time0').value)">copy time</button>
+            </div>
+            <div class="cop">
+                <h2>F</h2>
+                <textarea id="time1"></textarea><br>
+                <button onclick="CopyMe(document.getElementById('time0').value)">copy time</button>
+            </div>
+            <div class="cop">
+                <h2>J</h2>
+                <textarea id="time2"></textarea><br>
+                <button onclick="CopyMe(document.getElementById('time0').value)">copy time</button>
+            </div>
+            <div class="cop">
+                <h2>K</h2>
+                <textarea id="time3"></textarea><br>
+                <button onclick="CopyMe(document.getElementById('time0').value)">copy time</button>
+            </div>
+        </div>
+    </div>
+    <div class="trackinfo">
+        <h2>track info</h2>
+        <div class="info">
+            <p>name: <br><input id="trackname" type="text" placeholder="track name"></p>
+            <p>artist: <br><input id="trackartist" type="text" placeholder="track artist"></p>
+            <p>source: <br><input id="trackalbum" type="text" placeholder="track source"></p>
+            <p>preview position (seconds): <br><input id="preview_pos" type="number" placeholder="preview position"></p>
+            <p>audio file name (eg: audio.wav): <br><input id="audio_name" type="text" value="" placeholder="file name"></p>
+            <p>background file name (eg: bg.jpg): <br><input id="bg_name" type="text" value="" placeholder="background file name"></p>
+            <p>artwork file name (eg: bg.jpg): <br><input id="art_name" type="text" value="" placeholder="artwork file name"></p>
+            <br>
+            <button onclick="openMeta()">close track info editor</button>
+        </div>
+    </div>
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script src="/js/howler.min.js"></script>
+    <script src="/mapper.js"></script>
+</body>
+
+</html>
